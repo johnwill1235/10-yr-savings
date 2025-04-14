@@ -1,0 +1,412 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #D0D3D4; /* Cool grey background */
+    color: #37474f; /* Darker blue-grey */
+    margin: 0;
+    padding: 20px; /* Adjusted padding for overall spacing */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align top */
+    min-height: 100vh;
+    line-height: 1.6; /* Adjusted for readability */
+}
+
+.container {
+    background-color: #f8f9fa; /* Very light grey, almost white */
+    padding: 25px 35px; /* Slightly adjusted padding */
+    border-radius: 10px; /* Slightly smaller radius */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Adjusted shadow */
+    max-width: 1400px; /* Increased max-width for wider dashboard */
+    width: 100%;
+    text-align: center;
+    margin-top: 20px; /* Adjusted margin */
+    border: 1px solid #ffffff; /* White border for the main container */
+}
+
+header h1 {
+    color: #01579b;
+    margin-bottom: 8px; /* Adjusted */
+    font-weight: 700;
+    font-size: 2em; /* Slightly larger */
+}
+
+.subtitle {
+    color: #546e7a;
+    margin-bottom: 25px; /* Adjusted */
+    font-weight: 400;
+    font-size: 1.1em; /* Slightly larger */
+}
+
+/* Context Description Styles */
+.context-description {
+    background-color: #eef2f5; /* Light background */
+    padding: 15px 20px;
+    margin: 25px 0;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 0.95em;
+    border: 1px solid #dce4e8;
+    color: #455a64;
+}
+
+.context-description p {
+    margin: 0.5em 0;
+    line-height: 1.6;
+}
+
+.context-description p:first-child {
+    margin-top: 0;
+}
+
+.context-description p:last-child {
+    margin-bottom: 0;
+}
+
+.context-description strong {
+    color: #01579b; /* Match header color */
+    font-weight: 600;
+}
+
+.context-description a {
+    color: #0277bd; /* Link color */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.context-description a:hover {
+    text-decoration: underline;
+}
+
+
+/* --- Dashboard Grid Layout --- */
+.dashboard-grid {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; Two equal columns */
+    grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+    grid-template-areas:
+        /* "rates comparisons" Rates top-left, Comparisons top-right */
+        /* "savings comparisons"; Savings bottom-left, Comparisons still on right */
+        "rates savings comparisons"; /* Place each section side-by-side */
+    gap: 25px; /* Gap between grid items */
+    margin-top: 30px;
+    /* align-items: start; Align items to the top of their grid cell */
+    align-items: stretch; /* Make columns equal height */
+}
+
+.rates {
+    grid-area: rates; /* Assign to grid area */
+    display: flex; /* Keep flex for internal boxes */
+    flex-direction: column; /* Stack rate boxes vertically */
+    gap: 15px; /* Space between benchmark and current */
+    margin-bottom: 0; /* Remove default margin as grid handles spacing */
+}
+
+.rate-box {
+    background-color: #e9ecef; /* Slightly darker grey for contrast */
+    padding: 18px 22px; /* Adjusted padding */
+    border-radius: 6px; /* Smaller radius */
+    flex: 1;
+    border: 1px solid white; /* White outline */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    display: flex; /* Use flex for vertical alignment */
+    flex-direction: column;
+    justify-content: space-between; /* Space out title and value */
+    min-height: 110px; /* Adjusted height */
+}
+
+.rate-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.06);
+}
+
+.rate-box.current {
+    background-color: #e0e0e0; /* Different shade of grey */
+    border-color: white; /* Ensure white outline */
+}
+
+.rate-box h2 {
+    margin: 0 0 10px 0; /* Adjusted margin */
+    font-size: 1.05em; /* Adjusted */
+    color: #0277bd;
+    font-weight: 600;
+}
+
+.rate-box.current h2 {
+    color: #6a1b9a;
+}
+
+.rate-value {
+    font-size: 2.4em; /* Adjusted */
+    font-weight: 700;
+    color: #039be5;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.rate-box.current .rate-value {
+     color: #8e24aa;
+}
+
+.savings {
+    grid-area: savings; /* Assign to grid area */
+    background-color: #e9ecef; /* Consistent grey background */
+    /* padding: 20px 25px; Adjusted padding */
+    padding: 18px 22px; /* Match rate-box padding */
+    border-radius: 6px; /* Smaller radius */
+    border: 1px solid white; /* White outline */
+    margin-bottom: 0; /* Remove default margin */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+}
+
+.savings h2 {
+    color: #343a40; /* Darker grey/black for better contrast */
+    margin: 0 0 5px 0; /* Adjusted margin */
+    font-weight: 600;
+    font-size: 1.1em; /* Adjusted */
+    text-align: center;
+}
+
+.savings-highlight {
+    background-color: transparent; /* Remove background as parent has it */
+    padding: 0; /* Remove padding */
+    border-radius: 0;
+    margin-top: 0;
+    border: none; /* Remove border */
+    text-align: center;
+}
+
+.savings-highlight h2 {
+     margin: 0 0 8px 0;
+     font-size: 1.2em; /* Adjusted */
+     color: #343a40; /* Darker grey/black */
+     font-weight: 600;
+}
+
+.savings-value {
+    font-size: 2.8em; /* Adjusted */
+    font-weight: 700;
+    color: #212529; /* Black */
+    margin: 0;
+    word-wrap: break-word;
+    line-height: 1.1;
+}
+
+.savings-value .value {
+    display: inline-block;
+}
+
+.savings-note {
+    font-size: 0.9em; /* Adjusted */
+    color: #6c757d; /* Medium grey */
+    margin-top: 5px;
+}
+
+/* --- Comparison Section Styles --- */
+.comparisons {
+    grid-area: comparisons; /* Assign to grid area spanning right side */
+    background-color: #e9ecef; /* Consistent grey background */
+    padding: 18px 22px; /* Match rate-box padding */
+    border-radius: 6px; /* Smaller radius */
+    border: 1px solid white; /* White outline */
+    margin-top: 0; /* Remove default margin */
+    /* padding: 0; Remove padding, rely on gap - Replaced above */
+    display: flex; /* Use flex to help internal grid stretch */
+    flex-direction: column;
+}
+
+.comparisons h2 {
+    color: #01579b;
+    /* margin-bottom: 20px; Adjusted */
+    margin: 0 0 15px 0; /* Adjust margin within padded container */
+    font-size: 1.2em; /* Adjusted */
+    font-weight: 600;
+    text-align: center; /* Center title */
+}
+
+.comparison-grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); Adjusted minmax */
+    grid-template-columns: 1fr 1fr; /* Force 2 columns */
+    gap: 15px; /* Adjusted gap */
+    /* margin-bottom: 15px; Remove bottom margin */
+    flex-grow: 1; /* Allow grid to grow and fill space */
+}
+
+.comparison-item {
+    /* background-color: #e9ecef; Inherit from parent */
+    background-color: #f8f9fa; /* Slightly lighter for contrast inside */
+    padding: 15px; /* Adjusted */
+    border-radius: 4px; /* Slightly smaller radius */
+    /* border: 1px solid white; White outline */
+    border: 1px solid #dee2e6; /* Subtle border inside */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align items */
+    justify-content: center;
+    text-align: center;
+    min-height: 90px; /* Adjusted */
+}
+
+.comparison-value {
+    font-size: 1.8em; /* Adjusted */
+    font-weight: 600;
+    color: #424242;
+    margin-bottom: 5px; /* Adjusted */
+    line-height: 1.2;
+}
+
+.comparison-label {
+    font-size: 0.9em; /* Adjusted */
+    color: #616161;
+    text-align: center;
+}
+
+.comparison-note {
+    /* Treat note as a grid item now */
+    background-color: #f8f9fa; /* Match item background */
+    padding: 15px; /* Match item padding */
+    border-radius: 4px; /* Match item radius */
+    border: 1px solid #dee2e6; /* Match item border */
+    font-size: 0.85em; /* Slightly larger than before */
+    color: #6c757d; /* Medium grey */
+    /* margin-top: 15px; Remove margin */
+    margin-top: 0;
+    text-align: left; /* Align text left for readability */
+    line-height: 1.4;
+    /* Spans the full width if needed: grid-column: 1 / -1; */
+    /* Or just acts as the 4th item */
+    display: flex; /* Allow alignment */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    text-align: center; /* Center text */
+}
+/* --- End Comparison Section Styles --- */
+
+footer {
+    margin-top: 30px; /* Adjusted */
+    padding-top: 20px; /* Adjusted */
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.85em; /* Adjusted */
+    color: #757575;
+    line-height: 1.5;
+}
+
+footer p {
+    margin: 5px 0; /* Adjusted */
+}
+
+footer a {
+    color: #0288d1;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) { /* Adjusted breakpoint */
+    .container {
+        padding: 20px 25px;
+        max-width: 95%; /* Use percentage for smaller screens */
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* Stack columns */
+        grid-template-areas:
+            "rates"
+            "savings"
+            "comparisons"; /* Define areas for single column */
+        gap: 20px; /* Adjust gap */
+    }
+
+    .rates {
+        flex-direction: row; /* Side-by-side rate boxes again */
+        gap: 15px;
+    }
+
+    .rate-box {
+        min-height: 100px; /* Adjust min height */
+        padding: 15px 20px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+    .subtitle {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+    .rate-value {
+        font-size: 2em;
+    }
+    .savings-value {
+        font-size: 2.6em;
+    }
+    .comparison-value {
+        font-size: 1.6em;
+    }
+}
+
+@media (max-width: 480px) { /* Fine-tuning for very small screens */
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 15px 15px;
+    }
+    .rates {
+        flex-direction: column; /* Stack rate boxes on smallest screens */
+        gap: 10px;
+    }
+    header h1 {
+        font-size: 1.6em;
+    }
+    .subtitle {
+        font-size: 0.9em;
+    }
+     .rate-value {
+        font-size: 1.8em;
+    }
+    .savings-value {
+        font-size: 2.4em;
+    }
+    .comparison-value {
+        font-size: 1.5em;
+    }
+    .comparison-grid {
+        grid-template-columns: 1fr; /* Ensure single column */
+        gap: 10px;
+    }
+    .comparison-item {
+        padding: 15px;
+    }
+    footer {
+        font-size: 0.8em;
+    }
+}
+
+/* Styles for Percentage Difference */
+.percentage-diff {
+    font-size: 2.6em;
+    font-weight: 700;
+    color: #495057; /* Dark grey */
+    margin: 5px 0 0 0;
+    line-height: 1;
+    text-align: center;
+}
+
+.percentage-diff .value {
+    display: inline-block;
+}
+
+.explanation-percent {
+    font-size: 0.95em;
+    color: #555;
+    margin-top: 5px;
+    margin-bottom: 20px; /* Space before highlight */
+    text-align: center;
+} 

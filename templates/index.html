@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-Year Treasury Rate Savings Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Interest Rate Savings</h1>
+            <p class="subtitle">How lower 10-year Treasury rates reduce annual interest payments compared to a benchmark.</p>
+
+            <!-- New Context Description -->
+            <div class="context-description">
+                <p>The U.S. faces a significant challenge: refinancing <strong>$9.2 trillion</strong> in government debt during 2025 alone. This massive 'wall of maturities' underscores the critical importance of borrowing costs.</p>
+                <p>As highlighted by the United States Secretary of the Treasury, <a href="https://x.com/theallinpod/status/1902223565203665084" target="_blank">Scott Bessent</a>, even small changes matter – each basis point (0.01%) reduction in the 10-year Treasury yield can translate to roughly <strong>$1 billion in annual interest savings</strong>. This tool tracks the current rate against a recent high, illustrating the potential impact of these fluctuations.</p>
+            </div>
+            <!-- End Context Description -->
+
+            {% if error_message %}
+                <p style="color: red; font-weight: bold;">{{ error_message }}</p>
+            {% endif %}
+        </header>
+
+        <div class="dashboard-grid">
+            <section class="rates">
+                <div class="rate-box">
+                    <h2>Benchmark High Rate ({{ benchmark_high_rate_date }})</h2>
+                    <p class="rate-value">
+                        {% if one_year_high == 'NaN' %} {# Should not happen now as it's fixed #}
+                            {{ one_year_high }}
+                        {% else %}
+                            {{ one_year_high }}%
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="rate-box current">
+                    <h2>Current Rate</h2>
+                    <p class="rate-value">
+                        {% if current_rate == 'NaN' %}
+                            {{ current_rate }}
+                        {% else %}
+                            {{ current_rate }}%
+                        {% endif %}
+                    </p>
+                </div>
+            </section>
+
+            <section class="savings">
+                <h2>Rate Decrease vs Benchmark</h2>
+                <p class="percentage-diff">
+                    <span class="value">
+                        {% if rate_difference_percent == 'NaN' %}
+                            {{ rate_difference_percent }}
+                        {% else %}
+                            {{ rate_difference_percent }}%
+                        {% endif %}
+                    </span>
+                </p>
+                <p class="explanation-percent">Lower Than Benchmark High</p>
+
+                <div class="savings-highlight">
+                     <h2>Estimated Annual Savings</h2>
+                     <p class="savings-value">
+                        {% if savings_dollars == 'NaN' %}
+                            <span class="value">{{ savings_dollars }}</span>
+                        {% else %}
+                             $<span class="value">{{ savings_dollars }}</span>
+                        {% endif %}
+                     </p>
+                     <p class="savings-note">
+                        {% if savings_dollars != 'NaN' %}
+                            Dollars per year
+                        {% else %}
+                             &nbsp; <!-- Keep space even if NaN -->
+                        {% endif %}
+                    </p>
+                </div>
+            </section>
+
+            <!-- New Comparative Stats Section -->
+            <section class="comparisons">
+                <h2>What that Savings Buys (Annually)</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <span class="comparison-value">{{ num_carriers }}</span>
+                        <span class="comparison-label">Aircraft Carriers</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-value">{{ num_highway_miles }}</span>
+                        <span class="comparison-label">Miles of Highway</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-value">{{ num_households_income }}</span>
+                        <span class="comparison-label">Median Households' Annual Income</span>
+                    </div>
+                    <p class="comparison-note">* Estimates based on approximate costs: Ford-class Carrier (~$13B), Highway Mile (~$10M), US Median Household Income (~$75k).</p>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>Calculation based on the principle that each basis point decrease saves approximately $1 billion annually, relative to the benchmark high. <a href="https://x.com/theallinpod/status/1902223565203665084" target="_blank">Source context</a>.</p>
+            <p>Current rate from Financial Modeling Prep API (^TNX). Benchmark rate fixed at {{ one_year_high }}% ({{ benchmark_high_rate_date }}). Data may be delayed.</p>
+        </footer>
+    </div>
+</body>
+</html> 
